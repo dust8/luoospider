@@ -17,7 +17,7 @@ class LuooSpider(Spider):
         # 抓取一页里面的每期期刊地址
         for href in response.css('div.vol-list>div.item>a::attr("href")'):
             url = href.extract()
-            if url.split('/')[-1] <= self.last_vol_number:
+            if int(url.split('/')[-1]) <= self.last_vol_number:
                 self.stop = True
                 break
             yield Request(url, callback=self.parse_vol_contents)
